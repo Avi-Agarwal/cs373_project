@@ -3,6 +3,9 @@ import os
 import collections
 import numpy
 
+# Initial work
+
+
 def loadData():
     data = DataFrame({'text': [], 'classifier': []})
 

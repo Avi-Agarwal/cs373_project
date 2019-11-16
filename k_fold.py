@@ -41,37 +41,24 @@ def loadData():
 
     return data
 
-def train(data, folds = 6):
+def train(data, folds):
     pipeline = Pipeline([
         ('count_vectorizer', CountVectorizer(ngram_range=(1, 2))),
         ('classifier', MultinomialNB())
     ])
-    scores = []
-    confusion = numpy.array([[0, 0], [0, 0]])
-    print("Training with %d folds" % folds)
+
     for i, (train_indices, test_indices) in enumerate(KFold(folds).split(data)):
-        train_text = data.iloc[train_indices]['text'].values
-        train_y = data.iloc[train_indices]['classifier'].values.astype(str)
+        train_data = data.iloc[train_indices]['text'].values
+        train_result = data.iloc[train_indices]['classifier'].values.astype(str)
 
-        test_text = data.iloc[test_indices]['text'].values
-        test_y = data.iloc[test_indices]['classifier'].values.astype(str)
+        pipeline.fit(train_data, train_result)
 
-        print("Training for fold %d" % i)
-        pipeline.fit(train_text, train_y)
-        print("Testing for fold %d" % i)
-        predictions = pipeline.predict(test_text)
-
-        confusion += confusion_matrix(test_y, predictions)
-        score = f1_score(test_y, predictions, pos_label='spam')
-        scores.append(score)
-        print("Score for %d: %2.2f" % (i, score))
-        print("Confusion matrix for %d: " % i)
-        print(confusion)
-
-    print('Total emails classified:', len(data))
-    print('Score:', sum(scores)/len(scores))
-    print('Confusion matrix:')
-    print(confusion)
+    print('Number of emails classified:', len(data))
     return pipeline
 
-train(loadData())
+
+pipeline = train(loadData(), 2)
+
+print()
+print(pipeline.predict(["Hello, the spaceship is ready."]))
+print(pipeline.predict(["HOT SINGLES IN YOUR AREA!!"]))

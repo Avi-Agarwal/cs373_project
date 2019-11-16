@@ -1,14 +1,12 @@
 import os
-import sys
+
 import numpy
 from pandas import DataFrame
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.pipeline import Pipeline
-from sklearn.metrics import confusion_matrix, f1_score
 from sklearn.model_selection import KFold
+from sklearn.pipeline import Pipeline
+from sklearn.svm import SVC
 
-import os
 
 def loadData():
     data = DataFrame({'text': [], 'classifier': []})
@@ -41,10 +39,11 @@ def loadData():
 
     return data
 
+
 def train(data, folds):
     pipeline = Pipeline([
         ('count_vectorizer', CountVectorizer(ngram_range=(1, 2))),
-        ('classifier', MultinomialNB())
+        ('classifier', SVC(gamma='scale'))
     ])
 
     for i, (train_indices, test_indices) in enumerate(KFold(folds).split(data)):
@@ -63,4 +62,3 @@ pipeline = train(loadData(), 2)
 print()
 print(pipeline.predict(["Hello, the spaceship is ready."]))
 print(pipeline.predict(["HOT SINGLES IN YOUR AREA!!"]))
-

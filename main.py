@@ -27,10 +27,13 @@ def loadData():
 
     data = data.append(DataFrame(ham, ham_names))
 
-    print(data.describe())
 
+    print(data.describe())
+    return data
 
 loadData()
+
+
 
 if __name__ == '__main__':
     print('Hey Team')

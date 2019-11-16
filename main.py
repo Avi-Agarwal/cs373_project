@@ -1,10 +1,6 @@
 from pandas import DataFrame
 import os
 
-if __name__ == '__main__':
-    print('Hey Team')
-
-
 def loadData():
     data = DataFrame({'text': [], 'classifier': []})
 
@@ -35,3 +31,7 @@ def loadData():
 
 
 loadData()
+
+if __name__ == '__main__':
+    print('Hey Team')
+    loadData()

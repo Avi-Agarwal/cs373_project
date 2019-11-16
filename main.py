@@ -37,7 +37,6 @@ loadData()
 
 
 def make_Dictionary(train_dir):
-    #emails = [os.path.join(train_dir, f) for f in os.listdir(train_dir)]
     spamFiles = ['enron1/spam/' + f for f in os.listdir('enron1/spam')]
     hamFiles = ['enron1/ham/' + f for f in os.listdir('enron1/ham')]
     emails = spamFiles
@@ -45,18 +44,27 @@ def make_Dictionary(train_dir):
     for mail in emails:
         with open(mail, 'r', encoding="utf8", errors='ignore') as m:
             for i, line in enumerate(m):
-                if i == 1:  # Body of email is only 3rd line of text file
+                if i == 1:
                     words = line.split()
                     all_words += words
 
     dictionary = collections.Counter(all_words)
-    # Paste code for non-word removal here(code snippet is given below)
-    print(dictionary)
+    #print(dictionary)
     return dictionary
 
+
+def dictionary_preprocessing(dictionary):
+    check_list = dictionary.keys()
+    for word in list(check_list):
+        if not word.isalpha() or len(word) == 1:
+            del dictionary[word]
+    dictionary = dictionary.most_common(1000)  # get most common 100 words after removing alpha numerics
+    return dictionary
 
 
 if __name__ == '__main__':
     print('Hey Team')
     #loadData()
-    make_Dictionary('enron1')
+    dict = make_Dictionary('enron1')
+    dict = dictionary_preprocessing(dict)
+    print(dict)

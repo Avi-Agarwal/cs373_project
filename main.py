@@ -65,7 +65,7 @@ def dictionary_preprocessing(dictionary):
     for word in list(check_list):
         if not word.isalpha() or len(word) == 1:
             del dictionary[word]
-    dictionary = dictionary.most_common(1000)  # get most common 100 words after removing alpha numerics
+    dictionary = dictionary.most_common(2000)  # get most common 2000 words after removing alpha numeric
     return dictionary
 
 

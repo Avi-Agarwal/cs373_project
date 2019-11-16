@@ -36,10 +36,13 @@ def loadData():
 loadData()
 
 
-def make_Dictionary(train_dir):
+# Go through emails and create a word dictionary
+def make_word_dictionary(train_dir):
     spamFiles = ['enron1/spam/' + f for f in os.listdir('enron1/spam')]
     hamFiles = ['enron1/ham/' + f for f in os.listdir('enron1/ham')]
-    emails = spamFiles
+    all_files = spamFiles + hamFiles
+    emails = all_files
+    # emails = spamFiles
     all_words = []
     for mail in emails:
         with open(mail, 'r', encoding="utf8", errors='ignore') as m:
@@ -53,6 +56,7 @@ def make_Dictionary(train_dir):
     return dictionary
 
 
+# Get rid of non alpa containing words and single digit characters
 def dictionary_preprocessing(dictionary):
     check_list = dictionary.keys()
     for word in list(check_list):
@@ -64,7 +68,6 @@ def dictionary_preprocessing(dictionary):
 
 if __name__ == '__main__':
     print('Hey Team')
-    #loadData()
-    dict = make_Dictionary('enron1')
+    dict = make_word_dictionary('enron1')
     dict = dictionary_preprocessing(dict)
     print(dict)

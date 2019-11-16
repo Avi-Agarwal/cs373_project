@@ -59,6 +59,8 @@ def train(data, folds):
 
 pipeline = train(loadData(), 2)
 
+# Test Prediction
 print()
 print(pipeline.predict(["Hello, the spaceship is ready."]))
 print(pipeline.predict(["HOT SINGLES IN YOUR AREA!!"]))
+

@@ -29,7 +29,7 @@ def loadData():
             ham.append({'text': text, 'classifier': 'not spam'})
             ham_names.append(file)
 
-    data = data.append(DataFrame(ham, ham))
+    data = data.append(DataFrame(ham, ham_names))
 
     print(data.describe())
 

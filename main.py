@@ -40,7 +40,7 @@ loadData()
 
 
 # Go through emails and create a word dictionary
-def make_word_dictionary(train_dir):
+def make_word_dictionary():
     spamFiles = ['enron1/spam/' + f for f in os.listdir('enron1/spam')]
     hamFiles = ['enron1/ham/' + f for f in os.listdir('enron1/ham')]
     all_files = spamFiles + hamFiles
@@ -59,7 +59,7 @@ def make_word_dictionary(train_dir):
     return dictionary
 
 
-# Get rid of non alpa containing words and single digit characters
+# Get rid of non alpha containing words and single digit characters
 def dictionary_preprocessing(dictionary):
     check_list = dictionary.keys()
     for word in list(check_list):
@@ -68,9 +68,37 @@ def dictionary_preprocessing(dictionary):
     dictionary = dictionary.most_common(2000)  # get most common 2000 words after removing alpha numeric
     return dictionary
 
+# Gets the features in the form of a feature vector matrix whose rows represent the files trained
+# and columns the 2000 common words found from the dictionary creation
+def get_features(dictionary):
+    spamFiles = ['enron1/spam/' + f for f in os.listdir('enron1/spam')]
+    hamFiles = ['enron1/ham/' + f for f in os.listdir('enron1/ham')]
+    all_files = spamFiles + hamFiles
+    f_matrix = numpy.zeros((len(all_files), len(dictionary)))
+    dictionary_index = 0
+
+    for file in all_files:
+        with open(file, 'r', encoding="utf8", errors='ignore') as f:
+            for i,l in enumerate(f):
+                if i == 2:
+                    words = l.split()
+                    for w in words:
+                        for index, d_words in enumerate(dictionary):
+                            if d_words[0] == w:
+                                f_matrix[dictionary_index, index] = words.count(w)
+            dictionary_index = dictionary_index + 1
+
+    return f_matrix
+
+
+
+
+
 
 if __name__ == '__main__':
     print('Hey Team')
-    dict = make_word_dictionary('enron1')
+    dict = make_word_dictionary()
     dict = dictionary_preprocessing(dict)
+    fmat = get_features(dict)
+    print(fmat)
     print(dict)

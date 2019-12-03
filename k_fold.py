@@ -57,7 +57,7 @@ def loadData():
     return load_data
 
 
-def train(training_data, folds=10, algorithm=1):
+def train(training_data, folds=5, algorithm=1):
     pipeline = Pipeline([
         ('count_vectorizer', CountVectorizer(ngram_range=(1, 2))),
         ('classifier', KNeighborsClassifier() if algorithm == 1 else SVC(gamma='scale'))
@@ -104,19 +104,45 @@ if plot == "1":
     print("Loading validation data...")
     ham, spam = loadValidationData()
 
-    k_folds = range(2, 8)
-    ham_accuracies = []
-    spam_accuracies = []
+    test_type = input("Test for k-folds or data size? 1 or 2\n>")
 
-    for k_fold in k_folds:
-        print(f"\nTesting k-folds {k_fold}")
-        ham_accuracy, spam_accuracy = test_accuracy(train(data, folds=k_fold, algorithm=algorithm), ham, spam)
-        ham_accuracies.append(ham_accuracy)
-        spam_accuracies.append(spam_accuracy)
+    if test_type == "1":
+        k_folds = range(2, 13)
+        ham_accuracies = []
+        spam_accuracies = []
 
-    plt.plot(k_folds, ham_accuracies)
-    plt.plot(k_folds, spam_accuracies)
-    plt.show()
+        for k_fold in k_folds:
+            print(f"\nTesting k-folds {k_fold}")
+            ham_accuracy, spam_accuracy = test_accuracy(train(data, folds=k_fold, algorithm=algorithm), ham, spam)
+            ham_accuracies.append(ham_accuracy)
+            spam_accuracies.append(spam_accuracy)
+
+        plt.plot(k_folds, ham_accuracies, label='Ham Accuracy')
+        plt.plot(k_folds, spam_accuracies, label='Spam Accuracy')
+        plt.xlabel('K-Folds')
+        plt.ylabel('Percent Correct')
+        plt.title(('SVM' if algorithm == 2 else 'KNN') + " Accuracies vs K-Folds")
+        plt.legend()
+        plt.show()
+
+    else:
+        sizes = range(500, 5500, 500)
+        ham_accuracies = []
+        spam_accuracies = []
+
+        for size in sizes:
+            print(f"\nTesting size {size}")
+            ham_accuracy, spam_accuracy = test_accuracy(train(data.sample(size), algorithm=algorithm), ham, spam)
+            ham_accuracies.append(ham_accuracy)
+            spam_accuracies.append(spam_accuracy)
+
+        plt.plot(sizes, ham_accuracies, label='Ham Accuracy')
+        plt.plot(sizes, spam_accuracies, label='Spam Accuracy')
+        plt.xlabel('Data Size')
+        plt.ylabel('Percent Correct')
+        plt.title(('SVM' if algorithm == 2 else 'KNN') + " Accuracies vs Training Data Size")
+        plt.legend()
+        plt.show()
 
     exit(0)
 

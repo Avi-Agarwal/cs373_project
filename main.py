@@ -50,12 +50,11 @@ def make_word_dictionary():
     for mail in emails:
         with open(mail, 'r', encoding="utf8", errors='ignore') as m:
             for i, line in enumerate(m):
-                if i == 1:
+                if i == 0: # Checking only subject
                     words = line.split()
                     all_words += words
 
     dictionary = collections.Counter(all_words)
-    #print(dictionary)
     return dictionary
 
 
@@ -68,6 +67,7 @@ def dictionary_preprocessing(dictionary):
     dictionary = dictionary.most_common(2000)  # get most common 2000 words after removing alpha numeric
     return dictionary
 
+
 # Gets the features in the form of a feature vector matrix whose rows represent the files trained
 # and columns the 2000 common words found from the dictionary creation
 def get_features(dictionary):
@@ -78,9 +78,9 @@ def get_features(dictionary):
     dictionary_index = 0
 
     for file in all_files:
-        with open(file, 'r', encoding="utf8", errors='ignore') as f:
-            for i,l in enumerate(f):
-                if i == 2:
+        with open(file, 'r', encoding="utf8", errors='ignore') as freader:
+            for i, l in enumerate(freader):
+                if i == 0:  # Using just email Subject
                     words = l.split()
                     for w in words:
                         for index, d_words in enumerate(dictionary):

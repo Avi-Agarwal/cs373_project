@@ -6,7 +6,7 @@ RUNNING INSTRUCTIONS:
 
 Method 1 allows the user to choose the algorithm to run, as well as the number of k-folds.
 
-Simply run method1.py (python 3)
+Simply run method1.py (python 3.7)
 
 On running, Enron1 data will be preprocessed. (this may take a few seconds)
 

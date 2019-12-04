@@ -1,0 +1,19 @@
+RUNNING INSTRUCTIONS:
+
+                            +----------------------------------+
+                            |            METHOD 1              |
+                            +----------------------------------+
+
+Method 1 allows the user to choose the algorithm to run, as well as the number of k-folds.
+
+Simply run method1.py (python 3)
+
+On running, Enron1 data will be preprocessed. (this may take a few seconds)
+
+Then, you will be asked which algorithm to run. Enter 1 for KNN and 2 for SVM.
+
+You can then select whether you want to plot accuracies, or if you want to run tests yourself.
+(we recommend test)
+
+
+

@@ -160,16 +160,17 @@ def test_classifiers():
     total_ham = int(nb_matrix_results[0, 0] + nb_matrix_results[0, 1])
     total_spam = int(nb_matrix_results[1, 0] + nb_matrix_results[1, 1])
 
-    print('\nThe SVM trained Classifier Results:')
-    print('Classified ' + str(svm_ham_classification) + '/' + str(total_ham) + ' Ham emails correctly from the testing set')
+    print('\nThe SVM trained Classifier Results (trained on data set ' + str(training_file_name) + '):')
+    print('Classified ' + str(svm_ham_classification) + '/' + str(total_ham) + ' Ham emails correctly from the testing '
+                                                                               'set (' + str(testing_file_name) + ')')
     print('Classified ' + str(svm_spam_classification) + '/' + str(
-        total_spam) + ' Spam emails correctly from the testing set')
+        total_spam) + ' Spam emails correctly from the testing set (' + str(testing_file_name) + ')')
 
-    print('\nThe Naive Baiyes trained Classifier Results:')
-    print('Classified ' + str(nb_ham_classification) + '/' + str(
-        total_ham) + ' Ham emails correctly from the testing set')
+    print('\nThe Naive Bayes trained Classifier Results (trained on data set ' + str(training_file_name) + '):')
+    print('Classified ' + str(nb_ham_classification) + '/' + str(total_ham) + ' Ham emails correctly from the testing '
+                                                                              'set (' + str(testing_file_name) + ')')
     print('Classified ' + str(nb_spam_classification) + '/' + str(
-        total_spam) + ' Spam emails correctly from the testing set')
+        total_spam) + ' Spam emails correctly from the testing set (' + str(testing_file_name) + ')')
 
     return result_nb, result_svm
 
@@ -242,9 +243,9 @@ if __name__ == '__main__':
     print('\nComplete!')
 
     # You can manually test the models by entering a single email path and seeing what it is classified as
-    print('Demo of using single email prediction method to manually test the models\n')
-    predict_single_email('enron2/ham/0015.1999-12-14.kaminski.ham.txt')
-    predict_single_email('enron2/spam/0011.2001-06-28.SA_and_HP.spam.txt')
+    # print('Demo of using single email prediction method to manually test the models\n')
+    # predict_single_email('enron2/ham/0015.1999-12-14.kaminski.ham.txt')
+    # predict_single_email('enron2/spam/0011.2001-06-28.SA_and_HP.spam.txt')
 
 
 

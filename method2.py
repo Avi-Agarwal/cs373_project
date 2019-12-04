@@ -242,7 +242,7 @@ if __name__ == '__main__':
     print('\nComplete!')
 
     # You can manually test the models by entering a single email path and seeing what it is classified as
-    print('Demo of using single email prediction method to manually test the models')
+    print('Demo of using single email prediction method to manually test the models\n')
     predict_single_email('enron2/ham/0015.1999-12-14.kaminski.ham.txt')
     predict_single_email('enron2/spam/0011.2001-06-28.SA_and_HP.spam.txt')
 

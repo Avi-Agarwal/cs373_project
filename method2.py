@@ -134,13 +134,15 @@ def test_classifiers():
     if nb_model != 0:
         result_nb = nb_model.predict(test_features_matrix)
     else:
-        print('Models still need to be trained, please call build_models()')
+        print('Models still need to be trained, please call build_models(), please make sure you are not running in '
+              'pytest mode')
         return
 
     if svm_model != 0:
         result_svm = svm_model.predict(test_features_matrix)
     else:
-        print('Models still need to be trained, please call build_models()')
+        print('Models still need to be trained, please call build_models(), please make sure you are not running in '
+              'pytest mode')
         return
 
     print('Model Test Outputs:\n')
@@ -194,6 +196,40 @@ def build_test_feature_matrix():
     print('Testing Feature Matrix built!')
 
 
+# Given an email path if the models are built then we can predict if that single email is spam or ham
+def predict_single_email(email_path):
+    file = [email_path]
+
+    test_f_matrix = get_feature_matrix(file, word_list)  # Use the global word list as the features
+
+    if nb_model != 0:
+        result_nb = nb_model.predict(test_f_matrix)
+    else:
+        print('Models still need to be trained, please call build_models(), please make sure you are not running in '
+              'pytest mode')
+        return
+
+    if svm_model != 0:
+        result_svm = svm_model.predict(test_f_matrix)
+    else:
+        print('Models still need to be trained, please call build_models(), please make sure you are not running in '
+              'pytest mode')
+        return
+
+    if result_nb[0] == 1:
+        nb_prediction = 'Spam'
+    else:
+        nb_prediction = 'Ham'
+
+    if result_svm[0] == 1:
+        svm_prediction = 'Spam'
+    else:
+        svm_prediction = 'Ham'
+
+    print('The Naive Bayes Classifier Predicts ' + str(email_path) + ' as: ' + nb_prediction)
+    print('The Support Vector Machine Predicts ' + str(email_path) + ' as: ' + svm_prediction + '\n')
+
+
 if __name__ == '__main__':
 
     # Call this to build classifiers (will take some time)
@@ -204,6 +240,11 @@ if __name__ == '__main__':
     # Call to test classifiers
     test_classifiers()
     print('\nComplete!')
+
+    # You can manually test the models by entering a single email path and seeing what it is classified as
+    print('Demo of using single email prediction method to manually test the models')
+    predict_single_email('enron2/ham/0015.1999-12-14.kaminski.ham.txt')
+    predict_single_email('enron2/spam/0011.2001-06-28.SA_and_HP.spam.txt')
 
 
 

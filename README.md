@@ -1,0 +1,60 @@
+## Spam email detection using 2 learning methods to train a simple model
+
+RUNNING INSTRUCTIONS:
+
+Python Version:
+    Python 3.7
+
+Required Libraries:
+    numpy
+    sklearn
+    pandas
+    matplotlib
+    os
+    collections
+
+                            +----------------------------------+
+                            |            METHOD 1              |
+                            +----------------------------------+
+
+Method 1 allows the user to choose the algorithm to run, as well as the number of k-folds.
+
+Run method1.py
+
+On running, Enron1 data will be preprocessed. (this may take a few seconds)
+
+Then, you will be asked which algorithm to run. Enter 1 for KNN and 2 for SVM.
+
+You can then select whether you want to plot accuracies, or if you want to run tests yourself.
+(we recommend test)
+
+
+                            +----------------------------------+
+                            |            METHOD 2              |
+                            +----------------------------------+
+
+Method 2 Runs two algorithms for finding classifiers Naive Bayes and SVM. The test and training set are defaulted
+to enron 4 and enron 3 but those can be changed by changing the global variables.
+This method will train both methods and test the classifiers all together with one run. The console should tell the user
+exactly whats going on and print a clear reading of the results at the end. For individual email testing a method is
+provided called predict_single_email(email_path). This is currently commented out in the main function but can be used if
+users want to manually test the classifiers using specific emails. (Main run takes a while)
+
+To run: you can right click method2.py and hit Run 'main' or go to method2.py and scroll down to main and run it from there.
+
+Run method2.py
+
+On running, the models will be trained and a testing feature matrix is created which will take a couple minutes!
+Overall running of main takes a couple minutes so if it appears stuck it probably isn't!
+Sometimes a warning of non convergence appears and that is because our training set is pretty big so convergence is eventually
+defaulted, but the overall results are still accurate!
+
+
+
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
